@@ -39,7 +39,16 @@ function tokenize(input: string) {
   return tokens.reduce<string[]>((acc, token) => {
     if (!ignoredTerms.includes(token)) {
       const stripped = token.replace(/\W/g, '');
-      acc.push(stripped);
+      // If the token parses as a number, include it
+      if (Number(stripped)) {
+        acc.push(stripped);
+      } else {
+        // Otherwise split alphanumeric values and include
+        const sivb = stripped.match(/(\d+|[^\d]+)/g);
+        if (Array.isArray(sivb)) {
+          acc.push(...sivb);
+        }
+      }
     }
     return acc;
   }, []);

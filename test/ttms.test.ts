@@ -10,4 +10,7 @@ describe('ttms', () => {
   it('converts weeks', () => {
     expect(t('1 week')).toEqual(604800000);
   });
+  it('handles mixed spacing', () => {
+    expect(t('1hour, 30minutes and 1 second')).toEqual(5401000);
+  });
 });
